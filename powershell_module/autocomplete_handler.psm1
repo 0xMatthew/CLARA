@@ -11,9 +11,15 @@ function Invoke-ModelBasedTabCompletion {
     if (-not $global:previousCommandLine -or $global:previousCommandLine -ne $commandLine) {
         $global:previousCommandLine = $commandLine
 
-        # Define paths and parameters
-        $scriptPath = "E:\LLMs\github\LLLARRI\call_model.py"
-        $outputDir = "E:\LLMs\github\LLLARRI\output\"
+        # Use an environment variable to determine the paths dynamically
+        $claraRepoPath = $env:CLARA_REPO_PATH
+        if (-not $claraRepoPath) {
+            Write-Host "CLARA_REPO_PATH environment variable is not set. Cannot locate the CLARA repository."
+            return
+        }
+
+        $scriptPath = Join-Path -Path $claraRepoPath -ChildPath "call_model.py"
+        $outputDir = Join-Path -Path $claraRepoPath -ChildPath "output"
         $outputFile = Join-Path -Path $outputDir -ChildPath "output.txt"
 
         # Ensure the output directory exists

@@ -20,9 +20,19 @@ Else
     Write-Host "Chocolatey is already installed."
 }
 
+# Import Chocolatey profile to refresh environment variables in the current session
+# This line is added right after Chocolatey installation to ensure the environment is updated
+Try {
+    Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" -ErrorAction Stop
+} Catch {
+    Write-Host "Unable to import Chocolatey profile. Some commands might not be recognized in the current session."
+}
+
 # Force Reinstall pyenv-win
 Write-Host "Installing pyenv-win..."
 choco install pyenv-win --force -y
+
+refreshenv
 
 function Move-PyenvToTop {
     param($EnvVarName)
@@ -76,6 +86,24 @@ Write-Host "Installing Git..."
 choco install git -y
 
 # Refresh environment after Git installation
+refreshenv
+
+# Define a dynamic path for cloning the repository
+$githubPath = Join-Path -Path $env:ProgramFiles -ChildPath "github"
+if (-not (Test-Path $githubPath)) {
+    New-Item -Path $githubPath -ItemType Directory | Out-Null
+}
+
+# Dynamically set the CLARA repo path based on the script's execution location
+$claraRepoPath = Join-Path -Path $githubPath -ChildPath "CLARA"
+
+# Clone the CLARA repository
+Write-Host "Cloning CLARA repository..."
+Set-Location $githubPath
+git clone https://github.com/0xMatthew/CLARA.git $claraRepoPath
+
+# Set an environment variable to the CLARA repository path
+[Environment]::SetEnvironmentVariable("CLARA_REPO_PATH", $claraRepoPath, [System.EnvironmentVariableTarget]::User)
 refreshenv
 
 # Install Git LFS
