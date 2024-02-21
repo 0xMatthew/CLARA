@@ -214,8 +214,17 @@ If (Select-String -Path $profilePath -Pattern [regex]::Escape($importCommand) -Q
     Write-Host "Added module import to $profilePath"
 }
 
+refreshenv
+
 # Inform the user
-Write-Host "The autocomplete module will now load automatically on next PowerShell launch."
+Write-Host "The autocomplete module is now loaded. Your tab key behavior has been changed."
+
+# Setting environment variables for use in call_model.py
+[Environment]::SetEnvironmentVariable("TENSORRT_LLM_DIR", $tensorRTLLMDir, [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("TRT_ENGINE_DIR", $outputDir, [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("LLAMA_MODEL_DIR", $modelDir, [System.EnvironmentVariableTarget]::User)
+
+refreshenv
 
 # Final confirmation message
-Write-Host "CLARA is now installed! Open a new PowerShell window, type in your plain-english instructions, and press tab when you want CLARA to convert them to PowerShell commands. That's it!"
+Write-Host "CLARA has successfully installed! Open a new PowerShell window, type in your plain-english instructions, and press tab when you want CLARA to convert them to PowerShell commands. That's it!"

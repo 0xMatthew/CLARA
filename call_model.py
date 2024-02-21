@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import os
 
 # Check if the correct number of arguments is passed
 if len(sys.argv) < 2:
@@ -18,9 +19,9 @@ You are an assistant trained to translate English directives into PowerShell com
 formatted_input_text = f"<s>[INST] {system_prompt} [/INST]"
 
 # Define paths and parameters for running the script
-run_script_path = "E:/LLMs/github/release/TensorRT-LLM/examples/run.py"
-engine_dir = "E:/LLMs/NVIDIA/TRT_engine"
-tokenizer_dir = "E:/LLMs/hugging_face/Llama-2-13b-chat-hf"
+run_script_path = os.path.join(os.getenv('TENSORRT_LLM_DIR', 'default_path_if_not_set'), "examples", "llama", "run.py")
+engine_dir = os.getenv('TRT_ENGINE_DIR', 'default_path_if_not_set')
+tokenizer_dir = os.getenv('LLAMA_MODEL_DIR', 'default_path_if_not_set')
 max_output_len = 500
 max_input_len = 32768
 
