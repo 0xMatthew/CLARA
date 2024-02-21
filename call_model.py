@@ -19,7 +19,7 @@ You are an assistant trained to translate English directives into PowerShell com
 formatted_input_text = f"<s>[INST] {system_prompt} [/INST]"
 
 # Define paths and parameters for running the script
-run_script_path = os.path.join(os.getenv('TENSORRT_LLM_DIR', 'default_path_if_not_set'), "examples", "llama", "run.py")
+run_script_path = os.path.join(os.getenv('TENSORRT_LLM_DIR', 'default_path_if_not_set'), "examples", "run.py")
 engine_dir = os.getenv('TRT_ENGINE_DIR', 'default_path_if_not_set')
 tokenizer_dir = os.getenv('LLAMA_MODEL_DIR', 'default_path_if_not_set')
 max_output_len = 500
@@ -49,4 +49,4 @@ with open(output_file_path, 'w') as file:
     file.write(cleaned_output)
 
 # Print the cleaned output with "PS" prefix for terminal output
-print("PS " + cleaned_output)
+print("PowerShell command(s): " + cleaned_output)

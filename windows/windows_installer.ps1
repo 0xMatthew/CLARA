@@ -110,6 +110,8 @@ refreshenv
 Write-Host "Installing Git LFS..."
 choco install git-lfs -y
 
+# Might need to add line to prompt user to hit enter here
+
 # Refresh environment after Git LFS installation
 refreshenv
 
