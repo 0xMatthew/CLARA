@@ -233,4 +233,4 @@ Write-Host "The autocomplete module is now loaded. Your tab key behavior has bee
 refreshenv
 
 # Final confirmation message
-Write-Host "CLARA has successfully installed! Open a new PowerShell window, type in your plain-english instructions, and press tab when you want CLARA to convert them to PowerShell commands. That's it!"
+Write-Host "CLARA has successfully installed! Press control+u to activate CLARA. Then, in plain-english, type what you want PowerShell to do. When ready, press tab to have CLARA to convert your instruction to PowerShell commands."
