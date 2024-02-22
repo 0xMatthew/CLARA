@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - *.ps1
+      - '*.ps1'
 
 jobs:
   build:
@@ -49,7 +49,7 @@ jobs:
           asset_path: ./windows/windows_installer.ps1
           asset_name: windows_installer.ps1
           asset_content_type: text/plain
-          
+
       - name: Upload Release Installer
         uses: actions/upload-release-asset@v1
         env:
