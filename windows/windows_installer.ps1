@@ -12,7 +12,8 @@ If (-NOT (Get-Command choco -ErrorAction SilentlyContinue))
 {
     Write-Host "Installing Chocolatey..."
     Set-ExecutionPolicy Bypass -Scope Process -Force
-    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+    # Add TLS 1.2 without overriding existing protocols
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 Else
@@ -28,9 +29,14 @@ Try {
     Write-Host "Unable to import Chocolatey profile. Some commands might not be recognized in the current session."
 }
 
-# Force Reinstall pyenv-win
-Write-Host "Installing pyenv-win..."
-choco install pyenv-win --force -y
+# Check if pyenv-win is installed and install if not
+$pyenvWinInstalled = choco list --local-only | Select-String "pyenv-win"
+if (-not $pyenvWinInstalled) {
+    Write-Host "Installing pyenv-win..."
+    choco install pyenv-win -y
+} else {
+    Write-Host "pyenv-win is already installed."
+}
 
 refreshenv
 
