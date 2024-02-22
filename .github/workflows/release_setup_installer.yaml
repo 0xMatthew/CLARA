@@ -3,6 +3,10 @@ name: Build and Release
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
+    paths:
+      - *.ps1
 
 jobs:
   build:
@@ -37,7 +41,16 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
+      - name: Upload Release PowerShell Script
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_token }}
+        with:
+          asset_path: ./windows/windows_installer.ps1
+          asset_name: windows_installer.ps1
+          asset_content_type: text/plain
+          
+      - name: Upload Release Installer
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
