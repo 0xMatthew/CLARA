@@ -138,7 +138,7 @@ Write-Host "Installing tensorrt_llm package..."
 pip install tensorrt_llm==0.7.1 --extra-index-url https://pypi.nvidia.com --extra-index-url https://download.pytorch.org/whl/cu121
 
 # Display the link prominently 
-Write-Host "Please manually install cuDNN. Follow the instructions at:"
+Write-Host "Please manually install cuDNN. Follow the instructions in the TensorRT-LLM documentation:"
 Write-Host "https://github.com/NVIDIA/TensorRT-LLM/tree/rel/windows#cudnn"
 Write-Host "" # Add an empty line for spacing
 
@@ -183,7 +183,6 @@ if (Test-Path $buildScriptPath) {
 # Final message for build completion
 Write-Host "Model build completed."
 
-#____________________________________________
 # Determine module path within user profile
 $modulePath = Join-Path -Path $env:USERPROFILE -ChildPath "Documents\WindowsPowerShell\Modules\autocomplete_handler"
 
@@ -201,7 +200,6 @@ $destinationModulePath = Join-Path -Path $modulePath -ChildPath "autocomplete_ha
 Copy-Item -Path $sourceModulePath -Destination $destinationModulePath -Force
 Write-Host "Module autocomplete_handler.psm1 copied to $modulePath"
 
-#________________________________________________________
 # PowerShell profile path for the current user - adjust for PowerShell Core if necessary
 $profilePath = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
