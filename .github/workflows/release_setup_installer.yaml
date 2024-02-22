@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - '*.ps1'
+      - '**/*.ps1'
 
 jobs:
   build:
