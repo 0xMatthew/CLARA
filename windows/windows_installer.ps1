@@ -193,7 +193,7 @@ If (-not (Test-Path $modulePath)) {
 }
 
 # Define the source and destination paths for the module
-$sourceModulePath = Join-Path (Join-Path (Get-Location) ..) "powershell_module\autocomplete_handler.psm1"
+$sourceModulePath = Join-Path -Path $claraRepoPath -ChildPath "powershell_module\autocomplete_handler.psm1"
 $destinationModulePath = Join-Path -Path $modulePath -ChildPath "autocomplete_handler.psm1"
 
 # Copy the module file to the destination
@@ -213,7 +213,7 @@ If (-not (Test-Path $profilePath)) {
 
 # Add the import command to the profile, ensuring not to duplicate it
 $importCommand = "Import-Module `"$moduleFilePath`""
-If (Select-String -Path $profilePath -Pattern [regex]::Escape($importCommand) -Quiet) {
+If (Select-String -Path $profilePath -Pattern ([regex]::Escape($importCommand)) -Quiet) {
     Write-Host "Module import already exists in the profile."
 } Else {
     Add-Content -Path $profilePath -Value $importCommand
@@ -223,7 +223,7 @@ If (Select-String -Path $profilePath -Pattern [regex]::Escape($importCommand) -Q
 refreshenv
 
 # Inform the user
-Write-Host "The autocomplete module is now loaded. Your tab key behavior has been changed."
+Write-Host "The autocomplete module is now loaded."
 
 # Setting environment variables for use in call_model.py
 [Environment]::SetEnvironmentVariable("TENSORRT_LLM_DIR", $tensorRTLLMDir, [System.EnvironmentVariableTarget]::User)
