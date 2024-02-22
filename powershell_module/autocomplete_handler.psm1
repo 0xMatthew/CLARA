@@ -10,7 +10,7 @@ function Invoke-ModelBasedTabCompletion {
     [Microsoft.Powershell.PSConsoleReadLine]::GetBufferState([ref]$buffer, [ref]$cursor)
     $commandLine = $buffer.Substring(0, $cursor)
 
-    # Process the command only if the command line input has changed
+    # Process the command using LLM only if the command line input has changed
     if ($global:previousCommandLine -ne $commandLine) {
         $global:previousCommandLine = $commandLine
 
@@ -41,11 +41,6 @@ function Invoke-ModelBasedTabCompletion {
     }
 }
 
-# Initially, set Tab to invoke the default completion
-Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
-    Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
-}
-
 # Function to toggle the CLARA mode
 function Toggle-CLARAMode {
     $global:CLARAMode = -not $global:CLARAMode
@@ -61,6 +56,11 @@ function Toggle-CLARAMode {
     }    
     # Force the prompt to refresh
     [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+}
+
+# Initially, set Tab to invoke the default completion
+Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
+    Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
 }
 
 # Bind the toggle function to a hotkey
