@@ -1,3 +1,6 @@
+# Define a variable to track the state of CLARA mode
+$global:CLARAMode = $false
+
 function Invoke-ModelBasedTabCompletion {
     [CmdletBinding()]
     param($key, $arg)
@@ -7,11 +10,10 @@ function Invoke-ModelBasedTabCompletion {
     [Microsoft.Powershell.PSConsoleReadLine]::GetBufferState([ref]$buffer, [ref]$cursor)
     $commandLine = $buffer.Substring(0, $cursor)
 
-    # Ensure the model is only called once per unique command line input
-    if (-not $global:previousCommandLine -or $global:previousCommandLine -ne $commandLine) {
+    # Process the command only if the command line input has changed
+    if ($global:previousCommandLine -ne $commandLine) {
         $global:previousCommandLine = $commandLine
 
-        # Use an environment variable to determine the paths dynamically
         $claraRepoPath = $env:CLARA_REPO_PATH
         if (-not $claraRepoPath) {
             Write-Host "CLARA_REPO_PATH environment variable is not set. Cannot locate the CLARA repository."
@@ -22,16 +24,13 @@ function Invoke-ModelBasedTabCompletion {
         $outputDir = Join-Path -Path $claraRepoPath -ChildPath "output"
         $outputFile = Join-Path -Path $outputDir -ChildPath "output.txt"
 
-        # Ensure the output directory exists
         if (-not (Test-Path $outputDir)) {
             New-Item -ItemType Directory -Path $outputDir | Out-Null
         }
 
-        # Call the Python script with the current command line as input
         $command = "python `"$scriptPath`" `"$commandLine`""
         Invoke-Expression $command
 
-        # Read the output file
         $global:commandReplacement = Get-Content $outputFile -Raw
     }
 
@@ -42,6 +41,42 @@ function Invoke-ModelBasedTabCompletion {
     }
 }
 
+# Initially, set Tab to invoke the default completion
 Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
-    Invoke-ModelBasedTabCompletion
+    Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
+}
+
+# Function to toggle the CLARA mode
+function Toggle-CLARAMode {
+    $global:CLARAMode = -not $global:CLARAMode
+    # Update the Tab key behavior based on the CLARA mode state
+    if ($global:CLARAMode) {
+        Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
+            Invoke-ModelBasedTabCompletion
+        }
+        Write-Host "CLARAMode Activated" -ForegroundColor Green
+    } else {
+        Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
+        Write-Host "CLARAMode Deactivated" -ForegroundColor Yellow
+    }    
+    # Force the prompt to refresh
+    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+}
+
+# Bind the toggle function to a hotkey
+Set-PSReadLineKeyHandler -Chord 'Ctrl+u' -ScriptBlock {
+    Toggle-CLARAMode
+}
+
+# Custom prompt function
+function Prompt {
+    if ($global:CLARAMode) {
+        # If CLARA mode is activated, display 'PS*' in green instead of the usual 'PS'
+        Write-Host "PSC*" -NoNewline -ForegroundColor Green
+    } else {
+        # If CLARA mode is not activated, display the usual 'PS'
+        Write-Host "PS" -NoNewline
+    }
+    $currentPath = " " + $(Get-Location) + "> "
+    return $currentPath
 }

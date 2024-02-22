@@ -48,5 +48,4 @@ output_file_path = 'output/output.txt'
 with open(output_file_path, 'w') as file:
     file.write(cleaned_output)
 
-# Print the cleaned output with "PS" prefix for terminal output
 print("PowerShell command(s): " + cleaned_output)
