@@ -16,9 +16,9 @@ jobs:
         run: |
           Install-Module -Name ps2exe -Scope CurrentUser -Force
 
-      # - name: Import PS2EXE Module
-      #   run: |
-      #     Import-Module -Name ps2exe
+      - name: Import PS2EXE Module
+        run: |
+          Import-Module -Name ps2exe
 
       - name: Convert PS1 to EXE
         run: |
