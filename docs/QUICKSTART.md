@@ -21,13 +21,15 @@
         1. you will first be asked if you consent to your `PATH` being modified. 
         2. soon after, you will be prompted to log in to GitHub using the CLI or your web browser (if git SCM is installed).
         3. later on, you will be asked to confirm that you manually installed cuDNN as per TensorRT-LLM's documentation.
+            - this is a manual step because you will need an NVIDIA account. when you get to this stage, please visit [TensorRT-LLM's documentation](https://github.com/NVIDIA/TensorRT-LLM/tree/rel/windows#cudnn) on this process.
+            - once you have finished installing cuDNN, please type `installed` and hit enter to continue the installation process.
         4. later still, you will be prompted to input your huggingface credentials to download Llama 13b.
 
-    - in my experience, downloading and installing of CUDA is the longest portion of the installer. if it's hanging there for a while, try hitting enter once to see if PowerShell is waiting for input.
+    - in my experience, downloading and installing of CUDA is the longest portion of the installer. if it's hanging there for a while, try hitting enter a few times to see if PowerShell is waiting for input. on my PC, there is no hanging, but on a less-beefy EC2, i had issues with this needing the user to press enter. YMMV.
 
-4. wait for the script to finish. This might take a few hours, especially if your connection isn't very fast.
+4. wait for the script to finish. this might take a few hours, especially if your connection isn't very fast.
 
-5. once the installation finishes, go back to the [how to use section](../README.md/#how-to-use) to begin using CLARA!
+5. once the installation finishes, go back to the [how to use section](../README.md#how-to-use) to begin using CLARA!
 
 ## manual setup
 
@@ -66,13 +68,13 @@
         - your `engine_dir` is where the output from your TensorRT-LLM `build.py` script is located.
         - your `tokenizer_dir` is where you cloned whatever Llama repo you chose from huggingface.
 
-    2. set your $claraRepoPath environment variable to your local CLARA repo path:
+    2. set your `CLARA_REPO_PATH` environment variable to your local CLARA repo path:
 
         ```powershell
-        [System.Environment]::SetEnvironmentVariable('claraRepoPath', '<the_path_to_your_local_CLARA_repo>', [System.EnvironmentVariableTarget]::User)
+        [System.Environment]::SetEnvironmentVariable('CLARA_REPO_PATH', '<the_path_to_your_local_CLARA_repo>', [System.EnvironmentVariableTarget]::User)
         ```
         
-        - you're setting the `$claraRepoPath` environment variable so the `autocomplete_handler` module knows where to find the `call_model.py` script.
+        - you're setting the `CLARA_REPO_PATH` environment variable so the `autocomplete_handler` module knows where to find the `call_model.py` script.
 
     3. check if your PowerShell profile exists by running:
 
@@ -111,4 +113,4 @@
 
         - look for your module in the list to confirm it's available for use.
 
-    8. go back to the [how to use section](../README.md/#how-to-use) to begin using CLARA!
+    8. go back to the [how to use section](../README.md#how-to-use) to begin using CLARA!

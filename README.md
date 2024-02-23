@@ -7,10 +7,10 @@ CLARA transforms your plain english instructions into actionable CLI commands wi
 Clara uses TensorRT-LLM to build an optimized Llama 13b LLM model for efficient inference on NVIDIA GPUs. NVIDIA Ampere cards (30 series GPUs) and better experience significant performance gains during inference when using TensorRT-LLM.
 
 ## installation
-see the [quickstart](docs/QUICKSTART.md/#installation-using-windowswindows_installerps1-script) for installation steps with an easy-to-use install script. or, if you prefer, there are [manual setup steps](docs/QUICKSTART.md/#manual-setup) instead.
+see the [quickstart](docs/QUICKSTART.md#installation-using-windowswindows_installerps1-script) for installation steps with an easy-to-use install script. or, if you prefer, there are [manual setup steps](docs/QUICKSTART.md#manual-setup) instead.
 
 ## removal
-see the [removal guide](docs/REMOVE_CLARA.md/#removal-guide) for steps on how to disable CLARA.
+see the [removal guide](docs/REMOVE_CLARA.md/removal-guide) for steps on how to disable CLARA.
 
 ## how to use
 1. after succesfully installing CLARA, press `control+u` together to enable CLARA.
@@ -49,13 +49,15 @@ see the [removal guide](docs/REMOVE_CLARA.md/#removal-guide) for steps on how to
 
 4. (optional) when done using CLARA, you can disable it by pressing `control+u` together once more.
 
-
 ## additional information
 
 - "Why is there a 5-10 second delay between my pressing `tab` and receiving valid output?"
     - the delay is not indicative of production performance, as the actual token/s generated on even a consumer card such as a 3080 should be pretty fast. the delay is due to loading the model into VRAM for every inference request.
         - in a true a production environment, something like Triton Inference Server would be leveraged to keep the model loaded in VRAM, which should drastically reduce latency between pressing `tab` and receiving output. 
         - unfortunately, Triton Inference Server does not support offloading (AFAIK at the time of making this repo), and my 3080 was not able to load even Llama 7b entirely into its 10GB of VRAM. hopefully i win this contest so that i can instead use a 4090 to put the entirety of my LLM models in VRAM from now on -- *juuust kidding >:)*.
+- "CLARA outputted something that was totally incorrect. What gives?"
+    - Llama 13b is pretty limited in how sophisticated its responses can be. If you provide it english instructions that are sufficiently complicated or subtly nuanced, it will fail at giving valid output, and often times, it will hallucinate commands that don't exist. I personally can't build anything larger than 13b on my computer, but if you have the hardware for it, you should try using a larger model such as Llama 70b.
+        - Substituting Llama 13b with 70b is fairly straightforward. Assuming you ran the CLARA installation script, you would [build a TensorRT-LLM-optimized Llama 70b model](https://github.com/NVIDIA/TensorRT-LLM/tree/rel/examples/llama#build-tensorrt-engines) and place it in your `$env:TENSORRT_LLM_DIR` directory, replacing the 13b model that resides in there from when you first installed CLARA.
 - "Why did you choose Llama 13b?"
     - this repo uses int8 quantized Llama 13b, as it's the largest model that i could build on a 3080 while maintaining high token/s during inference. TensorRT-LLM will succesfully build Llama13b int8 on cards with 10GB of VRAM or greater, but even quantizing to float16 was too much for my 3080. YMMV depending on how beefy your hardware is.
     - **note:** **if you have less than 10GB of VRAM, you might not have enough VRAM for the TensorRT-LLM build process.**
