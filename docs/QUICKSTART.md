@@ -97,7 +97,7 @@
     6. in notepad, add the import command for this repo's autocomplete_handler module:
 
         ```powershell
-        Import-Module "$env:claraRepoPath\powershell_module\autocomplete_handler.psm1"
+        Import-Module "$env:claraRepoPath\powershell_module\CLARA.psm1"
         ```
 
         remember to replace <the_path_to_your_local_CLARA_repo> in your `$claraRepoPath` environment variable setup with the actual path where your CLARA repo is located.

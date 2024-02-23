@@ -199,18 +199,18 @@ If (-not (Test-Path $modulePath)) {
 }
 
 # Define the source and destination paths for the module
-$sourceModulePath = Join-Path -Path $claraRepoPath -ChildPath "powershell_module\autocomplete_handler.psm1"
-$destinationModulePath = Join-Path -Path $modulePath -ChildPath "autocomplete_handler.psm1"
+$sourceModulePath = Join-Path -Path $claraRepoPath -ChildPath "powershell_module\CLARA.psm1"
+$destinationModulePath = Join-Path -Path $modulePath -ChildPath "CLARA.psm1"
 
 # Copy the module file to the destination
 Copy-Item -Path $sourceModulePath -Destination $destinationModulePath -Force
-Write-Host "Module autocomplete_handler.psm1 copied to $modulePath"
+Write-Host "Module CLARA.psm1 copied to $modulePath"
 
 # PowerShell profile path for the current user - adjust for PowerShell Core if necessary
 $profilePath = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
 # Module file path
-$moduleFilePath = Join-Path -Path $modulePath -ChildPath "autocomplete_handler.psm1"
+$moduleFilePath = Join-Path -Path $modulePath -ChildPath "CLARA.psm1"
 
 # Check if the profile exists, if not, create it
 If (-not (Test-Path $profilePath)) {

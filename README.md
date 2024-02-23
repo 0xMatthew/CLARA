@@ -73,7 +73,7 @@ docs/
 │   QUICKSTART.md             # installation guide
 |   REMOVE_CLARA              # removal guide
 powershell_module/
-│   autocomplete_handler.psm1 # PowerShell module to add CLARA autocomplete functionality
+│   CLARA.psm1 # PowerShell module to add CLARA autocomplete functionality
 windows/
 │   windows_installer.ps1     # PowerShell script for environment setup on Windows
 .gitattributes
