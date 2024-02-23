@@ -174,8 +174,14 @@ $buildScriptPath = Join-Path -Path $tensorRTLLMDir -ChildPath "examples\llama\bu
 
 # Ensure the build script exists
 if (Test-Path $buildScriptPath) {
-    Write-Host "Building the model. This might take some time..."
-    python $buildScriptPath --model_dir $modelDir --dtype float16 --remove_input_padding --use_gpt_attention_plugin float16 --enable_context_fmha --use_gemm_plugin float16 --use_weight_only --output_dir $outputDir --weight_only_precision int8
+    # Construct the command as a string
+    $pythonCommand = "python `"$buildScriptPath`" --model_dir `"$modelDir`" --dtype float16 --remove_input_padding --use_gpt_attention_plugin float16 --enable_context_fmha --use_gemm_plugin float16 --use_weight_only --output_dir `"$outputDir`" --weight_only_precision int4"
+    
+    # Display the command
+    Write-Host "Executing command: $pythonCommand"
+    
+    # Execute the command
+    Invoke-Expression $pythonCommand
 } else {
     Write-Host "Build script not found at $buildScriptPath. Please verify the path."
 }

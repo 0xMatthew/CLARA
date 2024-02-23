@@ -2,7 +2,7 @@
 **C**ommand **L**ine **A**ssistant with **R**tx **A**cceleration
 
 ## overview
-CLARA transforms your plain english instructions into actionable CLI commands with the press of one key, all within PowerShell! Clara uses TensorRT-LLM to build an optimized Llama 13b LLM model for efficient inference on NVIDIA GPUs. NVIDIA with TensorRT-LLM, Ampere (30 series GPUs) and better experience significant performance gains during inference.
+CLARA transforms your plain english instructions into actionable CLI commands with the press of one key, all within PowerShell! Clara uses TensorRT-LLM to build an optimized Llama 13b LLM model for efficient inference on NVIDIA GPUs. NVIDIA Ampere cards (30 series GPUs) and better experience significant performance gains during inference when using TensorRT-LLM.
 
 ## installation
 see the [quickstart](docs/QUICKSTART.md/#installation-using-windowswindows_installerps1-script) for installation steps with an easy-to-use install script. or, if you prefer, there are [manual setup steps](docs/QUICKSTART.md/#manual-setup) instead.

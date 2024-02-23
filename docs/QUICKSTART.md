@@ -19,8 +19,8 @@
 
     - **NOTE:** the installer script is interactive at a few points! check in on it occasionally to see if user input is needed. 
         1. you will first be asked if you consent to your `PATH` being modified. 
-        2. soon after, you will be asked to confirm that you manually installed cuDNN as per TensorRT-LLM's documentation.
-        3. later on, you will be prompted to log in to GitHub using the CLI or your web browser (if git SCM is installed). 
+        2. soon after, you will be prompted to log in to GitHub using the CLI or your web browser (if git SCM is installed).
+        3. later on, you will be asked to confirm that you manually installed cuDNN as per TensorRT-LLM's documentation.
         4. later still, you will be prompted to input your huggingface credentials to download Llama 13b.
 
     - in my experience, downloading and installing of CUDA is the longest portion of the installer. if it's hanging there for a while, try hitting enter once to see if PowerShell is waiting for input.
