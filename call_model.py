@@ -18,6 +18,13 @@ You are an assistant trained to translate English directives into PowerShell com
 # Format the input text for the LLM
 formatted_input_text = f"<s>[INST] {system_prompt} [/INST]"
 
+# Get the absolute path to the directory containing the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to the 'output' directory, one level deeper from this script's location
+output_dir = os.path.join(script_dir, 'output')
+os.makedirs(output_dir, exist_ok=True)
+
 # Define paths and parameters for running the script
 run_script_path = os.path.join(os.getenv('TENSORRT_LLM_DIR', 'default_path_if_not_set'), "examples", "run.py")
 engine_dir = os.getenv('TRT_ENGINE_DIR', 'default_path_if_not_set')
@@ -44,7 +51,7 @@ output_lines = output.split('\n')
 cleaned_output = ' ; '.join([line[3:] for line in output_lines if line.startswith("PS")]).rstrip(' "')
 
 # Write the cleaned output to a file
-output_file_path = 'output/output.txt'
+output_file_path = os.path.join(output_dir, 'output.txt')
 with open(output_file_path, 'w') as file:
     file.write(cleaned_output)
 
