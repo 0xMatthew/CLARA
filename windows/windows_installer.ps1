@@ -267,4 +267,4 @@ Get-ChildItem -Path $claraRepoPath -Recurse | ForEach-Object {
 Write-Host "Ownership of '$claraRepoPath' and all its contents has been changed to $currentUserName."
 
 # Final confirmation message
-Write-Host "CLARA has successfully installed! Press control+u to activate CLARA. Then, in plain-english, type what you want PowerShell to do. When ready, press tab to have CLARA to convert your instruction to PowerShell commands."
+Write-Host "CLARA has successfully installed! Launch a new PowerShell terminal to try it out! Press control+u to activate CLARA. Then, in plain-english, type what you want PowerShell to do. When ready, press tab to have CLARA to convert your instruction to PowerShell commands."
