@@ -238,5 +238,33 @@ Write-Host "The autocomplete module is now loaded."
 
 refreshenv
 
+# Get the current user as the new owner
+$currentUserName = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+$newOwner = New-Object System.Security.Principal.NTAccount($currentUserName)
+
+# Function to change owner of a directory or file
+function Change-Owner {
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$itemPath,
+        [Parameter(Mandatory=$true)]
+        [System.Security.Principal.NTAccount]$owner
+    )
+
+    $acl = Get-Acl $itemPath
+    $acl.SetOwner($owner)
+    Set-Acl -Path $itemPath -AclObject $acl
+}
+
+# Change owner of the root directory
+Change-Owner -itemPath $claraRepoPath -owner $newOwner
+
+# Recursively change owner of all contents within the directory
+Get-ChildItem -Path $claraRepoPath -Recurse | ForEach-Object {
+    Change-Owner -itemPath $_.FullName -owner $newOwner
+}
+
+Write-Host "Ownership of '$claraRepoPath' and all its contents has been changed to $currentUserName."
+
 # Final confirmation message
 Write-Host "CLARA has successfully installed! Press control+u to activate CLARA. Then, in plain-english, type what you want PowerShell to do. When ready, press tab to have CLARA to convert your instruction to PowerShell commands."
