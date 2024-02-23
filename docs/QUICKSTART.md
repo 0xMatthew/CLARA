@@ -1,28 +1,29 @@
 ## installation using `windows/windows_installer.ps1` script
 
-- **NOTE:** CLARA works with Windows 10+. 
+- **NOTE:** CLARA works with Windows 10+.
     - specifically, you'll need to use PowerShell 5.1+, which is packaged with W10+ by default.
-- **NOTE:** You'll be downloading a lot of large files, so make sure you have 150+ GB of space in `C:\` prior to running the installer script.
+- **NOTE:** You'll be downloading a lot of large files, so make sure you have 110+ GB of space in `C:\` prior to running the installer script.
     - the Llama 13b repo alone, which the installer script downloads, will contain nearly 100 GB of files.
 - **NOTE:** if you already have your TensorRT-LLM environment installed and set up on Windows, you can skip using `windows_installer.ps1` and check out the [manual setup steps](#manual-setup) instead.
 - **NOTE:** the installer script makes changes to your Windows environment. make sure you're okay with changes to PowerShell, Windows environment variables, python, and python packages. you could always try setting up CLARA on a virtual machine first.
 
 1. run PowerShell as Administrator.
 
-2. cd into this repo's root directory.
+2. download `windows\windows_installer.ps1` from the latest commit to `main` or via the latest GitHub release source code `.zip` file.
+
+3. run the installer script:
 
     ```powershell
-    cd 'C:\Program Files\github\CLARA'
+    .\windows_installer.ps1
     ```
 
-3. run the windows installer script:
+    - **NOTE:** the installer script is interactive at a few points! check in on it occasionally to see if user input is needed. 
+        1. you will first be asked if you consent to your `PATH` being modified. 
+        2. soon after, you will be asked to confirm that you manually installed cuDNN as per TensorRT-LLM's documentation.
+        3. later on, you will be prompted to log in to GitHub using the CLI or your web browser (if git SCM is installed). 
+        4. later still, you will be prompted to input your huggingface credentials to download Llama 13b.
 
-    ```powershell
-    & windows\windows_installer.ps1
-    ```
-
-    - the `windows/windows_installer.ps1` automates the setup process, which includes the installation of dependencies and environment configuration.
-    - the install script is interactive at a few points. check in on it occasionally to see if user input is needed.
+    - in my experience, downloading and installing of CUDA is the longest portion of the installer. if it's hanging there for a while, try hitting enter once to see if PowerShell is waiting for input.
 
 4. wait for the script to finish. This might take a few hours, especially if your connection isn't very fast.
 
