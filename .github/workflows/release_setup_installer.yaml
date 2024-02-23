@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - '**/*.ps1'
 
 jobs:
   build:
@@ -15,20 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Install PS2EXE
-        shell: powershell
-        run: |
-          Install-Module -Name ps2exe -Scope CurrentUser -Force
+      # - name: Install PS2EXE
+      #   shell: powershell
+      #   run: |
+      #     Install-Module -Name ps2exe -Scope CurrentUser -Force
 
-      - name: Import PS2EXE Module
-        shell: powershell
-        run: |
-          Import-Module -Name ps2exe
+      # - name: Import PS2EXE Module
+      #   shell: powershell
+      #   run: |
+      #     Import-Module -Name ps2exe
 
-      - name: Convert PS1 to EXE
-        shell: powershell
-        run: |
-          Invoke-ps2exe -inputFile .\windows\windows_installer.ps1 -outputFile setup_environment.exe
+      # - name: Convert PS1 to EXE
+      #   shell: powershell
+      #   run: |
+      #     Invoke-ps2exe -inputFile .\windows\windows_installer.ps1 -outputFile setup_environment.exe
 
       - name: Create Release
         id: create_release
@@ -41,12 +39,12 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Installer
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./setup_environment.exe
-          asset_name: setup_environment.exe
-          asset_content_type: application/octet-stream
+      # - name: Upload Release Installer
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./setup_environment.exe
+      #     asset_name: setup_environment.exe
+      #     asset_content_type: application/octet-stream
