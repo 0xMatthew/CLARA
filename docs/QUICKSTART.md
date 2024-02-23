@@ -9,7 +9,7 @@
 
 1. run PowerShell as Administrator.
 
-2. download `windows\windows_installer.ps1` from the latest commit to `main` or via the latest GitHub release source code `.zip` file.
+2. download `windows\windows_installer.ps1` from the latest commit to `master` or via the latest GitHub release source code `.zip` file.
 
 3. run the installer script:
 
