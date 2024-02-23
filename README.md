@@ -5,7 +5,7 @@
 CLARA transforms plain english instructions into actionable CLI commands. optimized for NVIDIA Ampere hardware with the "llama2-13b-chat-hf" model, CLARA converts simple english instructions into PowerShell commands with the press of your `tab` key!
 
 ## installation
-see [quickstart](docs/QUICKSTART.md) for installation steps with CLARA's easy-to-use installer.
+see [quickstart](docs/QUICKSTART.md) for installation steps with CLARA's easy-to-use install script.
 
 ## features
 - **model:** uses [llama2-13b-chat-hf](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) for command generation
