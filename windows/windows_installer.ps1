@@ -190,7 +190,7 @@ if (Test-Path $buildScriptPath) {
 Write-Host "Model build completed."
 
 # Determine module path within user profile
-$modulePath = Join-Path -Path $env:USERPROFILE -ChildPath "Documents\WindowsPowerShell\Modules\autocomplete_handler"
+$modulePath = Join-Path -Path $env:USERPROFILE -ChildPath "Documents\WindowsPowerShell\Modules\CLARA"
 
 # Check if the module directory exists, if not, create it
 If (-not (Test-Path $modulePath)) {
@@ -229,7 +229,7 @@ If (Select-String -Path $profilePath -Pattern ([regex]::Escape($importCommand)) 
 refreshenv
 
 # Inform the user
-Write-Host "The autocomplete module is now loaded."
+Write-Host "The CLARA module is now loaded."
 
 # Setting environment variables for use in call_model.py
 [Environment]::SetEnvironmentVariable("TENSORRT_LLM_DIR", $tensorRTLLMDir, [System.EnvironmentVariableTarget]::User)
