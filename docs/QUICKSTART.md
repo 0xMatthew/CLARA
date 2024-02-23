@@ -31,84 +31,84 @@
 
 ## manual setup
 
-- **NOTE:** these manual steps assume that you have worked with TensorRT-LLM and are comfortable with building and running inference on models using TensorRT-LLM. these steps are only recommended if you have a good reason for not using the installation script/you are very experienced with TensorRT-LLM.
+**NOTE:** these manual steps assume that you have worked with TensorRT-LLM and are comfortable with building and running inference on models using TensorRT-LLM. these steps are only recommended if you have a good reason for not using the installation script/you are very experienced with TensorRT-LLM.
 
-first, ensure you have:
+- first, ensure you have:
     
-1. cloned the TensorRT-LLM `rel` branch: https://github.com/NVIDIA/TensorRT-LLM/tree/rel
+    1. cloned the TensorRT-LLM `rel` branch: https://github.com/NVIDIA/TensorRT-LLM/tree/rel
 
-2. installed 0.7.1 the TensorRT-LLM python package and all required dependencies
-    - this repo was built with support for version 0.7.1, which is contained in the TensorRT-LLM `rel` branch at the time of writing.
+    2. installed 0.7.1 the TensorRT-LLM python package and all required dependencies
+        - this repo was built with support for version 0.7.1, which is contained in the TensorRT-LLM `rel` branch at the time of writing.
 
-3. downloaded a chat-optimized llama 2 model from huggingface
-    - for example, if you have the hardware for it, you could download something as large as [Llama-2-70b-chat-hf](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) and use it with CLARA.
-    
-3. built an optimzied TensorRT-LLM llama model using `TensorRT-LLM\examples\build.py`
+    3. downloaded a chat-optimized llama 2 model from huggingface
+        - for example, if you have the hardware for it, you could download something as large as [Llama-2-70b-chat-hf](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) and use it with CLARA.
+        
+    3. built an optimzied TensorRT-LLM llama model using `TensorRT-LLM\examples\build.py`
 
-4. you have cloned the CLARA repo (this repo)
+    4. you have cloned the CLARA repo (this repo)
 
-now that your environment is set up, edit `call_model.py`:
+- now that your environment is set up, edit `call_model.py`:
 
-1. change the following 3 lines to point to your local directories:
-
-    ```python
-    run_script_path = os.path.join(os.getenv('TENSORRT_LLM_DIR', 'default_path_if_not_set'), "examples", "run.py")
-    engine_dir = os.getenv('TRT_ENGINE_DIR', 'default_path_if_not_set')
-    tokenizer_dir = os.getenv('LLAMA_MODEL_DIR', 'default_path_if_not_set')
-    ```
-
-    - for example, if you cloned the TensorRT-LLM repo into `C:\`, `run_script_path` would be set to `"C:\TensorRT-LLM\examples` like this:
+    1. change the following 3 lines to point to your local directories:
 
         ```python
-        run_script_path = "C:/TensorRT-LLM/examples"
+        run_script_path = os.path.join(os.getenv('TENSORRT_LLM_DIR', 'default_path_if_not_set'), "examples", "run.py")
+        engine_dir = os.getenv('TRT_ENGINE_DIR', 'default_path_if_not_set')
+        tokenizer_dir = os.getenv('LLAMA_MODEL_DIR', 'default_path_if_not_set')
         ```
 
-    - your `engine_dir` is where the output from your TensorRT-LLM `build.py` script is located.
-    - your `tokenizer_dir` is where you cloned whatever Llama repo you chose from huggingface.
+        - for example, if you cloned the TensorRT-LLM repo into `C:\`, `run_script_path` would be set to `"C:\TensorRT-LLM\examples` like this:
 
-2. set your $claraRepoPath environment variable to your local CLARA repo path:
+            ```python
+            run_script_path = "C:/TensorRT-LLM/examples"
+            ```
 
-    ```powershell
-    [System.Environment]::SetEnvironmentVariable('claraRepoPath', '<the_path_to_your_local_CLARA_repo>', [System.EnvironmentVariableTarget]::User)
-    ```
-    
-    - you're setting the `$claraRepoPath` environment variable so the `autocomplete_handler` module knows where to find the `call_model.py` script.
+        - your `engine_dir` is where the output from your TensorRT-LLM `build.py` script is located.
+        - your `tokenizer_dir` is where you cloned whatever Llama repo you chose from huggingface.
 
-3. check if your PowerShell profile exists by running:
+    2. set your $claraRepoPath environment variable to your local CLARA repo path:
 
-    ```powershell
-    Test-Path $PROFILE
-    ```
+        ```powershell
+        [System.Environment]::SetEnvironmentVariable('claraRepoPath', '<the_path_to_your_local_CLARA_repo>', [System.EnvironmentVariableTarget]::User)
+        ```
+        
+        - you're setting the `$claraRepoPath` environment variable so the `autocomplete_handler` module knows where to find the `call_model.py` script.
 
-    - if it returns `$false`, move to the next step to create one. if `$true`, skip the next step.
+    3. check if your PowerShell profile exists by running:
 
-4. create your PowerShell profile if it doesn't exist:
+        ```powershell
+        Test-Path $PROFILE
+        ```
 
-    ```powershell
-    New-Item -path $PROFILE -type file -force
-    ```
+        - if it returns `$false`, move to the next step to create one. if `$true`, skip the next step.
 
-5. open your PowerShell profile in a text editor. you can use notepad or any editor you prefer. here's how you'd open it in notepad:
+    4. create your PowerShell profile if it doesn't exist:
 
-    ```powershell
-    notepad $PROFILE
-    ```
+        ```powershell
+        New-Item -path $PROFILE -type file -force
+        ```
 
-6. in notepad, add the import command for this repo's autocomplete_handler module:
+    5. open your PowerShell profile in a text editor. you can use notepad or any editor you prefer. here's how you'd open it in notepad:
 
-    ```powershell
-    Import-Module "$env:claraRepoPath\powershell_module\autocomplete_handler.psm1"
-    ```
+        ```powershell
+        notepad $PROFILE
+        ```
 
-    remember to replace <the_path_to_your_local_CLARA_repo> in your `$claraRepoPath` environment variable setup with the actual path where your CLARA repo is located.
-    save the changes and close the editor.
+    6. in notepad, add the import command for this repo's autocomplete_handler module:
 
-7. to make sure everything's set up correctly, close and reopen your PowerShell terminal. check if the module loads automatically by running:
+        ```powershell
+        Import-Module "$env:claraRepoPath\powershell_module\autocomplete_handler.psm1"
+        ```
 
-    ```powershell
-    Get-Module -ListAvailable
-    ```
+        remember to replace <the_path_to_your_local_CLARA_repo> in your `$claraRepoPath` environment variable setup with the actual path where your CLARA repo is located.
+        save the changes and close the editor.
 
-    - look for your module in the list to confirm it's available for use.
+    7. to make sure everything's set up correctly, close and reopen your PowerShell terminal. check if the module loads automatically by running:
 
-8. go back to the [how to use section](../README.md/#how-to-use) to begin using CLARA!
+        ```powershell
+        Get-Module -ListAvailable
+        ```
+
+        - look for your module in the list to confirm it's available for use.
+
+    8. go back to the [how to use section](../README.md/#how-to-use) to begin using CLARA!
