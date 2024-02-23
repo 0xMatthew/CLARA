@@ -1,5 +1,5 @@
 # CLARA (NVIDIA Gen AI on RTX PCs Developer Contest Entry)
-**C**ommand **L**ine **A**ssistant with **R**tx **A**cceleration
+**CLARA**: **C**ommand **L**ine **A**ssistant with **R**tx **A**cceleration
 
 ## overview
 CLARA transforms your plain english instructions into actionable CLI commands with the press of one key, all within PowerShell! 
