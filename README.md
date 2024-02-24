@@ -24,7 +24,7 @@ see the [removal guide](docs/REMOVE_CLARA.md/removal-guide) for steps on how to 
             <img src="./img3.png" alt="arrow" width="100"/>
             <img src="./img2.png" alt="english directive entered" width="400"/>
         </div>
-    - try experimenting with some of these plain english prompts `tab` to see what CLARA generates:
+    - experiment with some of these plain english prompts:
 
         ```plaintext
         create a new directory in the current directory called Salutations, navigate into it, run git init inside of it
