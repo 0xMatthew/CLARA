@@ -20,9 +20,9 @@ see the [removal guide](docs/REMOVE_CLARA.md/removal-guide) for steps on how to 
 2. enter a plain english directive that you want PowerShell to perform:
     - steps 1. and 2. will look something like this:
         <div>
-            <img src="img1.png" alt="CLARA activated" width="400"/>
-            <img src="img3.png" alt="arrow" width="100"/>
-            <img src="img2.png" alt="english directive entered" width="400"/>
+            <img src="./img1.png" alt="CLARA activated" width="400"/>
+            <img src="./img3.png" alt="arrow" width="100"/>
+            <img src="./img2.png" alt="english directive entered" width="400"/>
         </div>
     - try experimenting with some of these plain english prompts `tab` to see what CLARA generates:
 
@@ -41,11 +41,11 @@ see the [removal guide](docs/REMOVE_CLARA.md/removal-guide) for steps on how to 
     - note: there will be a bit of a delay while the TRT runs Llama 13b and generates a response to your instruction. see [additional information](#additional-information) for more on this.
     - after 5-10 seconds, you should see a PowerShell-equivalent of your english instruction:
 
-        ![CLARA-created PowerShell command](img4.png)
+        ![CLARA-created PowerShell command](./img4.png)
 
 3. if you're satisfied with what the model has come up with, hit enter to run your command.
 
-    ![running your CLARA-created PowerShell command](img5.png)
+    ![running your CLARA-created PowerShell command](./img5.png)
 
 4. (optional) when done using CLARA, you can disable it by pressing `control+u` together once more.
 
