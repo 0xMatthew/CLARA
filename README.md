@@ -56,7 +56,7 @@ see the [removal guide](docs/REMOVE_CLARA.md/removal-guide) for steps on how to 
 - "Why is there a 5-10 second delay between my pressing `tab` and receiving valid output?"
     - the delay is not indicative of production performance, as the actual token/s generated on even a consumer card such as a 3080 should be pretty fast. the delay is due to loading the model into VRAM for every inference request.
         - in a true a production environment, something like Triton Inference Server would be leveraged to keep the model loaded in VRAM, which should drastically reduce latency between pressing `tab` and receiving output. 
-        - unfortunately, Triton Inference Server does not support offloading (AFAIK at the time of making this repo), and my 3080 was not able to load even Llama 7b entirely into its 10GB of VRAM. hopefully i win this contest so that i can instead use a 4090 to put the entirety of my LLM models in VRAM from now on -- *juuust kidding >:)*.
+        - unfortunately, Triton Inference Server does not support offloading (AFAIK at the time of making this repo), and my 3080 was not able to load even a quantized Llama 7b entirely into its 10GB of VRAM while using Triton. hopefully i win this contest so that i can instead use a 4090 to put the entirety of my LLM models in VRAM from now on -- *juuust kidding >:)*.
 - "CLARA outputted something that was totally incorrect. What gives?"
     - Llama 13b is pretty limited in how sophisticated its responses can be. If you provide it english instructions that are sufficiently complicated or subtly nuanced, it will fail at giving valid output, and often times, it will hallucinate commands that don't exist. This can be mitigated by using a larger Llama model.
 - "Why did you choose Llama 13b?"
