@@ -60,7 +60,7 @@ see the [removal guide](docs/REMOVE_CLARA.md/removal-guide) for steps on how to 
 - "CLARA outputted something that was totally incorrect. What gives?"
     - Llama 13b is pretty limited in how sophisticated its responses can be. If you provide it english instructions that are sufficiently complicated or subtly nuanced, it will fail at giving valid output, and often times, it will hallucinate commands that don't exist. This can be mitigated by using a larger Llama model.
 - "Why did you choose Llama 13b?"
-    - this repo uses int8 quantized Llama 13b, as it's the largest model that i could build on a 3080 while maintaining high token/s during inference. TensorRT-LLM will succesfully build Llama13b int8 on cards with 10GB of VRAM or greater, but even quantizing to float16 was too much for my 3080. YMMV depending on how beefy your hardware is.
+    - this repo uses int8 quantized Llama 13b, as it's the largest model that i could build on a 3080 while maintaining high token/s during inference. TensorRT-LLM will succesfully build Llama13b int8 on cards with 10GB of VRAM, but even quantizing to float16 caused out-of-memory errors on my 3080. YMMV depending on how much VRAM your GPU has.
     - **note:** **if you have less than 10GB of VRAM, you might not have enough VRAM for the TensorRT-LLM build process.**
     - if you still want to use this repo despite having a card with less than 10GB of VRAM, you can try building a quantized Llama 7b model instead of Llama 13b during the build process.
 - "Can I use bigger Llama models with CLARA?"
